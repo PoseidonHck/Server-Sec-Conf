@@ -50,7 +50,7 @@ sudo apt install net-tools
 
 >Luego de haber instalado la herramienta, debemos realizar las reglas que estaremos aplicando a nuestra red local, para ello debemos ir al archivo "**/etc/snort/rules/local.rules**". En este archivo debemos ir realizando las reglas de control que nuestro IPS seguirá para la protección de la red.
 
-![[local.rules.png]]
+![local.rules](./Imagenes/local.rules.png)
 
 >Como podemos ver aquí creamos una regla básica, las reglas de Snort son un mundo aparte que debemos investigar, es una herramienta tan flexible que, podría hasta ser configurada para la detección de CVE's. Las reglas avanzadas están fuera del alcance de este documento.
 
@@ -98,7 +98,7 @@ alert tcp any any -> any 80 (msg:"Inteno de acceso a /admin detectado"; content:
 
 >Esta es una regla que demuestra la eficacia de Snort como tanto un IDS como un IPS, protegiendo al servidor de posibles amenazas. Cade destacar lo escalable de la herramienta, puesto que, puede proteger a toda una red.
 
-![[Snort_final.png]]
+![Snort_final](./Imagenes/Snort_final.png)
 
 >Así se vería nuestro archivo de reglas locales de Snort. Ahora demos activar el poder registrar los logs para su posterior revisión, acotando que Snort es una excelente herramienta que se puede complementar con la implementación de SIEMS.
 
@@ -124,15 +124,15 @@ sudo iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW -m recent --
 - **`--update --seconds 60 --hitcount 5`**: Bloquea la IP si se detectan 5 intentos en 60 segundos.
 - **`-j DROP`**: Esta acción descarta los paquetes cuando se exceden los intentos permitidos.
 
-![[ConfiguraciónIPTABLES.png]]
+![ConfiguraciónIPTABLES.](./Imagenes/ConfiguraciónIPTABLES)
 
 >Una vez realizada la configuración intento el acceso mediante fuerza bruta implementando la herramienta hydra desde una máquina Kali Linux atacante. 
 
-![[AtaqueKaliSSH.png]]
+![AtaqueKaliSSH](./Imagenes/AtaqueKaliSSH.png)
 
 >Ahora si vamos a los logs del servidor veremos como luego de los 5 intento fallidos, se bloquea la conexión. 
 
-![[LogsServidorSSH.png]]
+![LogsServidorSSH](./Imagenes/LogsServidorSSH.png)
 
 ### Configuración de nftables
 
@@ -185,11 +185,11 @@ sudo nft add rule inet protection output ip protocol icmp drop
 sudo nft list table inet protection
 ```
 
-![[tablaProtection.png]]
+![tablaProtection](./Imagenes/tablaProtection.png)
 
 >Ahora podemos intentar el realizar un **ping** desde nuestra máquina atacante:
 
-![[ping.png]]
+![ping](./Imagenes/ping.png)
 
 >Como podemos ver, el ping no es aceptado, por lo cual no tiene respuesta de parte del servidor.
 
@@ -209,7 +209,7 @@ nft add rule inet filter input tcp dport 22 ct state new limit rate 5/minute bur
 
 >Al ir a nuestra máquina atacante y realizar el ataque con hydra vemos lo siguiente:
 
-![[HydraFallido.png]]
+![HydraFallido](./Imagenes/HydraFallido.png)
 
 # Resumen
 
