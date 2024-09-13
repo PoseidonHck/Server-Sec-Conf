@@ -44,7 +44,7 @@ sudo apt install net-tools
 
 >Con esta herramienta podremos visualizar el prefijo de la red en la cual estamos operando, que será necesario para la configuración de la herramienta Snort como mencionamos anteriormente, se vería algo así:
 
-![[ifconfig.png]]
+./imagenes/ifconfig.png
 
 # Configuración de Snort
 
